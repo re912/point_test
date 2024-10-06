@@ -125,6 +125,42 @@ def view_points():
             return f"こんにちは {customer[1]} さん、現在のポイントは {customer[3]} ポイントです。"  # customer[3] は points カラム
     return redirect(url_for('customer_login'))
 
+# ポイントを使用するページ
+@app.route('/use_points', methods=['GET', 'POST'])
+def use_points():
+    if request.method == 'POST':
+        name = request.form['name']
+        points_to_use = int(request.form['points_to_use'])  # 使用したいポイント数
+
+        # データベースから顧客を検索
+        conn = sqlite3.connect('point_test.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT id, points FROM customers WHERE name = ?', (name,))
+        customer = cursor.fetchone()
+
+        if customer:
+            customer_id, current_points = customer
+
+            # ポイントが50以上あるか確認
+            if current_points >= points_to_use:
+                new_points = current_points - points_to_use
+
+                # 顧客のポイントを更新
+                cursor.execute('UPDATE customers SET points = ? WHERE id = ?', (new_points, customer_id))
+                conn.commit()
+                conn.close()
+
+                flash(f'{name} さんが {points_to_use} ポイントを使用しました！ 現在のポイント: {new_points}', 'success')
+            else:
+                flash(f'{name} さんは十分なポイントを持っていません。現在のポイント: {current_points}', 'error')
+        else:
+            flash('顧客が見つかりませんでした。', 'error')
+
+        return redirect(url_for('use_points'))
+
+    return render_template('use_points.html')
+
+
 
 if __name__ == '__main__':
     init_db()
