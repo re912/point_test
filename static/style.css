@@ -1,26 +1,30 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+/* ナビゲーションバーのスタイル */
+nav ul {
+    list-style-type: none; /* リストのマーカーを削除 */
+    padding: 0;
+    margin: 0;
+    display: flex; /* 横並びにする */
+    justify-content: center; /* 中央に配置 */
 }
 
-form {
-    margin: 20px 0;
+nav ul li {
+    margin: 0 10px; /* 各リンクの間に余白を設定 */
 }
 
-input[type="text"],
-input[type="number"] {
-    padding: 8px;
-    margin: 10px 0;
-}
-
-input[type="submit"] {
+nav ul li a {
+    display: inline-block;
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+    background-color: #4CAF50; /* ボタンの背景色 */
+    color: white; /* 文字色 */
+    text-decoration: none; /* 下線を削除 */
+    border-radius: 5px; /* 角を丸くする */
+    transition: background-color 0.3s ease; /* ホバー時のアニメーション */
 }
 
-input[type="submit"]:hover {
-    background-color: #45a049;
+nav ul li a:hover {
+    background-color: #45a049; /* ホバー時の背景色 */
+}
+
+nav ul li a:active {
+    background-color: #3e8e41; /* クリック時の背景色 */
 }
