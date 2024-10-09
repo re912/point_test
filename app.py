@@ -22,6 +22,7 @@ def init_db():
 
 # ポイント追加用のカラムを追加
 def add_points_column():
+    pass
     conn = sqlite3.connect('point_test.db')
     cursor = conn.cursor()
     cursor.execute('''
