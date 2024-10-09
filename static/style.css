@@ -28,3 +28,38 @@ nav ul li a:hover {
 nav ul li a:active {
     background-color: #3e8e41; /* クリック時の背景色 */
 }
+
+/* main部分のスタイル */
+main {
+    display: flex;
+    flex-direction: column; /* 子要素を縦に並べる */
+    align-items: center;     /* 水平方向の中央揃え */
+    min-height: 80vh;        /* mainの高さを調整し、中央に配置 */
+    background-color: #f9f9f9; /* 背景色を指定して見た目を整える */
+}
+
+/* フォームのスタイル */
+form {
+    text-align: left; /* ラベルと入力フィールドは左揃え */
+    margin-top: 20px; /* h1との間に余白を追加 */
+}
+
+/* h1のスタイル */
+h1 {
+    text-align: center; /* h1を中央揃え */
+}
+
+/* 入力フィールドのスタイル */
+input[type="text"], input[type="number"], input[type="password"] {
+    display: block; /* 各入力要素をブロック表示 */
+    margin: 10px 0; /* 上下に余白を追加 */
+    width: 80%; /* 入力フィールドの幅を調整（必要に応じて変更） */
+    max-width: 300px; /* 入力フィールドの最大幅を設定 */
+}
+
+/* ボタンのスタイル */
+button[type="submit"], input[type="submit"] {
+    display: block; /* ボタンをブロック表示にして */
+    margin: 20px auto; /* 上下に余白を追加し、左右は自動調整で中央揃え */
+    width: 80%; /* ボタンの幅を調整（必要に応じて変更） */
+}
