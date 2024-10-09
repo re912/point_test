@@ -57,6 +57,7 @@ input[type="text"], input[type="number"], input[type="password"] {
     max-width: 300px; /* 入力フィールドの最大幅を設定 */
 }
 
+
 /* ボタンのスタイル */
 button[type="submit"], input[type="submit"] {
     display: block; /* ボタンをブロック表示にして */
