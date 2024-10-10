@@ -38,6 +38,7 @@ main {
     background-color: #f9f9f9; /* 背景色を指定して見た目を整える */
 }
 
+
 /* フォームのスタイル */
 form {
     text-align: left; /* ラベルと入力フィールドは左揃え */
@@ -56,6 +57,7 @@ input[type="text"], input[type="number"], input[type="password"] {
     width: 80%; /* 入力フィールドの幅を調整（必要に応じて変更） */
     max-width: 300px; /* 入力フィールドの最大幅を設定 */
 }
+
 
 /* ボタンのスタイル */
 button[type="submit"], input[type="submit"] {
