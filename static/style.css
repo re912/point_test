@@ -42,6 +42,9 @@ main {
 form {
     text-align: left; /* ラベルと入力フィールドは左揃え */
     margin-top: 20px; /* h1との間に余白を追加 */
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向に中央揃え */
+    gap: 10px; /* ボタンの間に隙間を設定 */
 }
 
 /* h1のスタイル */
@@ -60,8 +63,9 @@ input[type="text"], input[type="number"], input[type="password"] {
 /* ボタンのスタイル */
 button[type="submit"], input[type="submit"] {
     display: block; /* ボタンをブロック表示にして */
-    margin: 20px auto; /* 上下に余白を追加し、左右は自動調整で中央揃え */
-    width: 80%; /* ボタンの幅を調整（必要に応じて変更） */
+    width: auto; /* ボタンの幅を自動に設定 */
+    padding: 10px 15px; /* ボタンの内側余白を設定 */
+    margin: 0; /* ボタンの上下マージンを削除 */
 }
 
 /* スマホ画面向けのスタイル調整 */
@@ -79,5 +83,10 @@ button[type="submit"], input[type="submit"] {
     button[type="submit"], input[type="submit"] {
         width: 90%; /* スマホ画面では幅を広げる */
         max-width: none; /* 最大幅を解除 */
+    }
+
+    form {
+        flex-direction: row; /* 横並びにする */
+        flex-wrap: wrap; /* 必要に応じて折り返し */
     }
 }
