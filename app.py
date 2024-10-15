@@ -121,9 +121,14 @@ def view_points():
         name = session['customer_name']
         customer = get_customer_by_name(name)
         if customer:
-            # session はテンプレートで使わないので、必要なデータを渡す
-            return render_template('view_points.html', customer_name=customer[1], customer_points=customer[3])
+            current_points = customer[3]
+            discount_points = 50  # 割引に必要なポイント
+            points_needed = discount_points - current_points if current_points < discount_points else 0  # 必要なポイント計算
+
+            # テンプレートに渡すデータを更新
+            return render_template('view_points.html', customer_name=customer[1], customer_points=current_points, points_needed=points_needed)
     return redirect(url_for('customer_login'))
+
 
 # ポイントを使用するページ
 @app.route('/use_points', methods=['GET', 'POST'])

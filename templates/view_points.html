@@ -8,14 +8,13 @@
 
     <style>
         p {
-    font-size: 24px; /* 全てのpタグの文字サイズを24pxに設定 */
-}
+            font-size: 24px; /* 全てのpタグの文字サイズを24pxに設定 */
+        }
 
-strong {
-    font-size: 30px; /* strongタグの文字サイズを30pxに設定 */
-}
+        strong {
+            font-size: 30px; /* strongタグの文字サイズを30pxに設定 */
+        }
 
-       
         /* ヘッダーのスタイル */
         header {
             background-color: #4CAF50;
@@ -25,30 +24,30 @@ strong {
             height: 70px;
         }
 
-    .image-class {
-    width: 80px; /* 画像の幅を指定 */
-    height: auto; /* 高さは自動調整 */
-    display: block;
-    margin: 30px auto; /* 上下に20pxのマージンを追加し、中央に配置 */
-}
-/* コンテナ全体を画面の中央に配置するためのスタイル */
-.container {
-    display: flex;              /* フレックスボックスを使用 */
-    justify-content: center;    /* 水平方向に中央揃え */
-    align-items: center;        /* 垂直方向に中央揃え */
-    height: 100vh;              /* 画面の高さ全体を使う */
-    text-align: center;         /* テキストを中央揃え */
-    flex-direction: column;     /* 要素を縦に並べる */
-}
+        .image-class {
+            width: 80px; /* 画像の幅を指定 */
+            height: auto; /* 高さは自動調整 */
+            display: block;
+            margin: 30px auto; /* 上下に20pxのマージンを追加し、中央に配置 */
+        }
 
-/* スマホなど小さい画面でも対応するためのレスポンシブ対応 */
-@media (max-width: 768px) {
-    .container {
-        padding: 20px;         /* スマホ画面で余白を調整 */
-    }
-}
+        /* コンテナ全体を画面の中央に配置するためのスタイル */
+        .container {
+            display: flex;              /* フレックスボックスを使用 */
+            justify-content: flex-start;    /* 水平方向に中央揃え */
+            align-items: center;        /* 垂直方向に中央揃え */
+            height: 100vh;              /* 画面の高さ全体を使う */
+            text-align: center;         /* テキストを中央揃え */
+            flex-direction: column;     /* 要素を縦に並べる */
+            padding-top: 20px;         /* 上部に余白を追加 */
+        }
 
-
+        /* スマホなど小さい画面でも対応するためのレスポンシブ対応 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;         /* スマホ画面で余白を調整 */
+            }
+        }
     </style>
 </head>
 <body>
@@ -59,6 +58,13 @@ strong {
     <div class="container">
         <p>こんにちは、{{ customer_name }} さん</p>
         <p>現在のポイントは <strong>{{ customer_points }}</strong> ポイントです。</p>
+
+        <!-- 割引に必要なポイントを表示 -->
+        {% if points_needed > 0 %}
+            <p>あと <strong>{{ points_needed }}</strong> ポイントためると、2000円引きの割引が受けられます！</p>
+        {% else %}
+            <p>おめでとうございます！割引が受けられます！</p>
+        {% endif %}
     
         <!-- ここに画像を挿入 -->
         <img src="{{ url_for('static', filename='leaf_logo.gif') }}" class="image-class" alt="葉っぱロゴ">

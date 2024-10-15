@@ -38,10 +38,9 @@ main {
     background-color: #f9f9f9; /* 背景色を指定して見た目を整える */
 }
 
-
 /* フォームのスタイル */
 form {
-    text-align: left /* ラベルと入力フィールドは左揃え */
+    text-align: left; /* ラベルと入力フィールドは左揃え */
     margin-top: 20px; /* h1との間に余白を追加 */
 }
 
@@ -58,10 +57,27 @@ input[type="text"], input[type="number"], input[type="password"] {
     max-width: 300px; /* 入力フィールドの最大幅を設定 */
 }
 
-
 /* ボタンのスタイル */
 button[type="submit"], input[type="submit"] {
     display: block; /* ボタンをブロック表示にして */
     margin: 20px auto; /* 上下に余白を追加し、左右は自動調整で中央揃え */
     width: 80%; /* ボタンの幅を調整（必要に応じて変更） */
+}
+
+/* スマホ画面向けのスタイル調整 */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* 縦に並べる */
+        align-items: center; /* 中央揃え */
+    }
+
+    nav ul li {
+        margin: 5px 0; /* 縦並びにした場合のマージン調整 */
+    }
+
+    input[type="text"], input[type="number"], input[type="password"], 
+    button[type="submit"], input[type="submit"] {
+        width: 90%; /* スマホ画面では幅を広げる */
+        max-width: none; /* 最大幅を解除 */
+    }
 }
