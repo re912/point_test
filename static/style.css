@@ -40,10 +40,10 @@ main {
 
 /* フォームのスタイル */
 form {
-    text-align: left; /* ラベルと入力フィールドは左揃え */
-    margin-top: 20px; /* h1との間に余白を追加 */
     display: flex; /* フレックスボックスを使用 */
-    justify-content: center; /* 水平方向に中央揃え */
+    justify-content: center; /* 中央に配置 */
+    align-items: center; /* 縦方向も中央揃え */
+    margin-top: 20px; /* h1との間に余白を追加 */
     gap: 10px; /* ボタンの間に隙間を設定 */
 }
 
@@ -62,7 +62,6 @@ input[type="text"], input[type="number"], input[type="password"] {
 
 /* ボタンのスタイル */
 button[type="submit"], input[type="submit"] {
-    display: block; /* ボタンをブロック表示にして */
     width: auto; /* ボタンの幅を自動に設定 */
     padding: 10px 15px; /* ボタンの内側余白を設定 */
     margin: 0; /* ボタンの上下マージンを削除 */
