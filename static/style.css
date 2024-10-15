@@ -41,7 +41,7 @@ main {
 
 /* フォームのスタイル */
 form {
-    text-align: left; /* ラベルと入力フィールドは左揃え */
+    text-align: left /* ラベルと入力フィールドは左揃え */
     margin-top: 20px; /* h1との間に余白を追加 */
 }
 

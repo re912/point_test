@@ -116,14 +116,14 @@ def customer_login():
     
     return render_template('customer_login.html')
 
-# 顧客のポイントを表示するページ
 @app.route('/view_points')
 def view_points():
     if 'customer_name' in session:
         name = session['customer_name']
         customer = get_customer_by_name(name)
         if customer:
-            return f"こんにちは {customer[1]} さん、現在のポイントは {customer[3]} ポイントです。"  # customer[3] は points カラム
+            # session はテンプレートで使わないので、必要なデータを渡す
+            return render_template('view_points.html', customer_name=customer[1], customer_points=customer[3])
     return redirect(url_for('customer_login'))
 
 # ポイントを使用するページ

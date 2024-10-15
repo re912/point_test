@@ -93,15 +93,12 @@
             padding: 50px 0;
             height: 70px;
         }
-
-        /* bodyの背景画像を設定 */
-        body {
-            background-image: url('{{ url_for("static", filename="葉っぱロゴ.gif") }}');
-            background-size: 50px 30px;
-            background-position: 50% 60%;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
+    .image-class {
+    width: 80px; /* 画像の幅を指定 */
+    height: auto; /* 高さは自動調整 */
+    display: block;
+    margin: 30px auto; /* 上下に20pxのマージンを追加し、中央に配置 */
+}
 
         /* レスポンシブデザイン */
         @media only screen and (max-width: 600px) {
@@ -135,5 +132,7 @@
 
         <button type="submit">ログイン</button>
     </form>
+    <!-- ここに画像を挿入 -->
+    <img src="{{ url_for('static', filename='leaf_logo.gif') }}" class="image-class" alt="葉っぱロゴ">
 </body>
 </html>
