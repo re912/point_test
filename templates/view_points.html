@@ -20,8 +20,8 @@
             background-color: #4CAF50;
             color: white;
             text-align: center;
-            padding: 50px 0;
-            height: 70px;
+            padding: 5px 0;
+            height: 20px;
         }
 
         .image-class {
@@ -39,8 +39,21 @@
             height: 100vh;              /* 画面の高さ全体を使う */
             text-align: center;         /* テキストを中央揃え */
             flex-direction: column;     /* 要素を縦に並べる */
-            padding-top: 20px;         /* 上部に余白を追加 */
+            padding-top: 10px;         /* 上部に余白を追加 */
         }
+        /* CSS */
+.image-container {
+    display: flex; /* 横並びにする */
+    justify-content: center; /* 画像を中央揃え */
+    gap: 10px; /* 画像の間に余白を設定 */
+}
+
+.image-container img {
+    width: 500px; /* 画像の幅を調整 */
+    height: auto; /* 高さを自動調整 */
+    border-radius: 5px; /* 画像の角を丸くする（オプション） */
+}
+
 
         /* スマホなど小さい画面でも対応するためのレスポンシブ対応 */
         @media (max-width: 768px) {
@@ -51,11 +64,11 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>クロロフイル今治美顔教室</h1>
-    </header>
-
+    <header></header>
     <div class="container">
+        <!-- ここに画像を挿入 -->
+        <img src="{{ url_for('static', filename='leaf_logo.gif') }}" class="image-class" alt="葉っぱロゴ">
+
         <p>こんにちは、{{ customer_name }} さん</p>
         <p>現在のポイントは <strong>{{ customer_points }}</strong> ポイントです。</p>
 
@@ -65,9 +78,16 @@
         {% else %}
             <p>おめでとうございます！割引が受けられます！</p>
         {% endif %}
-    
+    </div>
+
+    <div class="container">
         <!-- ここに画像を挿入 -->
         <img src="{{ url_for('static', filename='leaf_logo.gif') }}" class="image-class" alt="葉っぱロゴ">
+        <p>もっとお得にポイントを使うには</p>
+        <p><strong>お手入れ</strong>がおすすめ</p>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='oteire.png') }}" alt="お手入れ">
+        </div>
     </div>
     
 </body>

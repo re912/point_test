@@ -28,6 +28,10 @@ nav ul li a:hover {
 nav ul li a:active {
     background-color: #3e8e41; /* クリック時の背景色 */
 }
+nav ul li {
+    font-size: 12px; /* フォントサイズを12pxに設定 */
+}
+
 
 /* main部分のスタイル */
 main {
@@ -41,6 +45,7 @@ main {
 /* フォームのスタイル */
 form {
     display: flex; /* フレックスボックスを使用 */
+    flex-direction: column; /* 子要素を縦に並べる */
     justify-content: center; /* 中央に配置 */
     align-items: center; /* 縦方向も中央揃え */
     margin-top: 20px; /* h1との間に余白を追加 */
@@ -57,7 +62,7 @@ input[type="text"], input[type="number"], input[type="password"] {
     display: block; /* 各入力要素をブロック表示 */
     margin: 10px 0; /* 上下に余白を追加 */
     width: 80%; /* 入力フィールドの幅を調整（必要に応じて変更） */
-    max-width: 300px; /* 入力フィールドの最大幅を設定 */
+    max-width: 200px; /* 入力フィールドの最大幅を設定 */
 }
 
 /* ボタンのスタイル */
@@ -85,7 +90,7 @@ button[type="submit"], input[type="submit"] {
     }
 
     form {
-        flex-direction: row; /* 横並びにする */
+        flex-direction: column; /* 横並びにする */
         flex-wrap: wrap; /* 必要に応じて折り返し */
     }
 }
