@@ -19,7 +19,12 @@ nav ul li a {
     text-decoration: none; /* 下線を削除 */
     border-radius: 5px; /* 角を丸くする */
     transition: background-color 0.3s ease; /* ホバー時のアニメーション */
+    width: 85px; /* ボタンの幅を85pxに設定 */
+    height: 20px; /* ボタンの高さを20pxに設定 */
+    text-align: center; /* 文字を中央に配置 */
+    line-height: 20px; /* 文字の縦中央揃え */
 }
+
 
 nav ul li a:hover {
     background-color: #45a049; /* ホバー時の背景色 */
@@ -72,6 +77,7 @@ button[type="submit"], input[type="submit"] {
     margin: 0; /* ボタンの上下マージンを削除 */
 }
 
+
 /* スマホ画面向けのスタイル調整 */
 @media (max-width: 768px) {
     nav ul {
@@ -93,4 +99,43 @@ button[type="submit"], input[type="submit"] {
         flex-direction: column; /* 横並びにする */
         flex-wrap: wrap; /* 必要に応じて折り返し */
     }
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.history-table th, .history-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.history-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.history-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.history-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.delete-button:hover {
+    background-color: #e60000;
 }

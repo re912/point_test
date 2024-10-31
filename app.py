@@ -17,15 +17,15 @@ def init_db():
             points INTEGER DEFAULT 0
         )
     ''')
-    conn.commit()
-    conn.close()
-
-# ポイント追加用のカラムを追加
-def add_points_column():
-    conn = sqlite3.connect('point_test.db')
-    cursor = conn.cursor()
     cursor.execute('''
-        ALTER TABLE customers ADD COLUMN points INTEGER DEFAULT 0
+        CREATE TABLE IF NOT EXISTS points_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            customer_id INTEGER NOT NULL,
+            points_change INTEGER NOT NULL,
+            operation_type TEXT NOT NULL,
+            datetime TEXT NOT NULL,
+            FOREIGN KEY (customer_id) REFERENCES customers (id)
+        )
     ''')
     conn.commit()
     conn.close()
@@ -76,6 +76,13 @@ def add_points():
 
             # 顧客のポイントを更新
             cursor.execute('UPDATE customers SET points = ? WHERE id = ?', (new_points, customer_id))
+
+            # ポイント履歴に記録
+            cursor.execute('''
+                INSERT INTO points_history (customer_id, points_change, operation_type, datetime)
+                VALUES (?, ?, ?, datetime('now'))
+            ''', (customer_id, points_to_add, 'add'))
+
             conn.commit()
             conn.close()
 
@@ -111,10 +118,11 @@ def customer_login():
             session['customer_name'] = customer[1]
             return redirect(url_for('view_points'))  # ログイン後にポイント確認ページにリダイレクト
         else:
-            return 'ログインに失敗しました。名前またはパスワードが正しくありません。'
+            flash('ログインに失敗しました。名前またはパスワードが正しくありません。', 'error')
     
     return render_template('customer_login.html')
 
+# ポイントを表示するページ
 @app.route('/view_points')
 def view_points():
     if 'customer_name' in session:
@@ -125,10 +133,8 @@ def view_points():
             discount_points = 50  # 割引に必要なポイント
             points_needed = discount_points - current_points if current_points < discount_points else 0  # 必要なポイント計算
 
-            # テンプレートに渡すデータを更新
             return render_template('view_points.html', customer_name=customer[1], customer_points=current_points, points_needed=points_needed)
     return redirect(url_for('customer_login'))
-
 
 # ポイントを使用するページ
 @app.route('/use_points', methods=['GET', 'POST'])
@@ -146,12 +152,19 @@ def use_points():
         if customer:
             customer_id, current_points = customer
 
-            # ポイントが50以上あるか確認
+            # ポイントが十分にあるか確認
             if current_points >= points_to_use:
                 new_points = current_points - points_to_use
 
                 # 顧客のポイントを更新
                 cursor.execute('UPDATE customers SET points = ? WHERE id = ?', (new_points, customer_id))
+
+                # ポイント履歴に記録
+                cursor.execute('''
+                    INSERT INTO points_history (customer_id, points_change, operation_type, datetime)
+                    VALUES (?, ?, ?, datetime('now'))
+                ''', (customer_id, -points_to_use, 'use'))
+
                 conn.commit()
                 conn.close()
 
@@ -165,7 +178,52 @@ def use_points():
 
     return render_template('use_points.html')
 
+# ポイント履歴を表示するページ
+@app.route('/points_history')
+def points_history():
+    conn = sqlite3.connect('point_test.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT ph.id, c.name, ph.points_change, ph.operation_type, ph.datetime
+        FROM points_history ph
+        JOIN customers c ON ph.customer_id = c.id
+    ''')
+    history = cursor.fetchall()
+    conn.close()
+    return render_template('points_history.html', history=history)
 
+# ポイント履歴を削除する処理
+@app.route('/delete_history/<int:history_id>', methods=['POST'])
+def delete_history(history_id):
+    conn = sqlite3.connect('point_test.db')
+    cursor = conn.cursor()
+
+    # 対象の履歴を取得
+    cursor.execute('SELECT customer_id, points_change FROM points_history WHERE id = ?', (history_id,))
+    history = cursor.fetchone()
+
+    if history:
+        customer_id, points_change = history
+
+        # 顧客の現在のポイントを取得
+        cursor.execute('SELECT points FROM customers WHERE id = ?', (customer_id,))
+        current_points = cursor.fetchone()[0]
+
+        # ポイントを元に戻す
+        new_points = current_points - points_change
+        cursor.execute('UPDATE customers SET points = ? WHERE id = ?', (new_points, customer_id))
+
+        # 履歴を削除
+        cursor.execute('DELETE FROM points_history WHERE id = ?', (history_id,))
+
+        conn.commit()
+        conn.close()
+
+        flash('履歴が削除され、ポイントが調整されました。', 'success')
+    else:
+        flash('履歴が見つかりませんでした。', 'error')
+
+    return redirect(url_for('points_history'))
 
 if __name__ == '__main__':
     init_db()
