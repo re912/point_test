@@ -17,6 +17,14 @@ def init_db():
             points INTEGER DEFAULT 0
         )
     ''')
+    conn.commit()
+    conn.close()
+
+# ポイント追加用のカラムを追加
+def add_points_column():
+    conn = sqlite3.connect('point_test.db')
+    cursor = conn.cursor()
+
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS points_history (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -227,4 +235,4 @@ def delete_history(history_id):
 
 if __name__ == '__main__':
     init_db()
-    app.run(debug=True)
+    app.run(debug=False)
